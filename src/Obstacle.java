@@ -2,7 +2,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Obstacle {
-
 	private Point center;
 	private Rectangle region;
 	private int size;

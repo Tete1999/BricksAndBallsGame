@@ -2,7 +2,7 @@ import java.awt.*;
 
 
 public class Bat {
-
+    
     private Rectangle region;
     private int size;
     private Color color;

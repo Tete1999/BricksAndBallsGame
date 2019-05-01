@@ -17,7 +17,6 @@ public class LaunchPanel extends JPanel implements VanishListener {
 	private JLabel lives;
 	private final int numObstacles = 5;
 
-
 	public LaunchPanel() {
 		setPreferredSize(new Dimension(500, 500));
 		dots = new ArrayList<MovingDot>();
@@ -42,12 +41,8 @@ public class LaunchPanel extends JPanel implements VanishListener {
 		launchPoint.paint(g);
 		b.paint(g);
 		try {
-			for (MovingDot d : dots) {
-				d.paint(g);
-			}
-			for (Obstacle o : obstacles) {
-				o.paint(g); }
-		}
+			for (MovingDot d : dots) { d.paint(g); }
+			for (Obstacle o : obstacles) { o.paint(g); } }
 		catch (ConcurrentModificationException c){}
 	}
 
@@ -73,14 +68,9 @@ public class LaunchPanel extends JPanel implements VanishListener {
 	private class MoveBat extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				b.setCenterX(-15);
-			}
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				b.setCenterX(15);
-			}
-			repaint();
-		}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) { b.setCenterX(-15); }
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) { b.setCenterX(15); }
+			repaint(); }
 	}
 
 	private class Action implements Runnable {
@@ -96,13 +86,8 @@ public class LaunchPanel extends JPanel implements VanishListener {
 					if (d.top() < 0) {
 						d.reflectY();
 					}
-					if ((d.left() < 0) || d.right() > getWidth()) {
-						d.reflectX();
-					}
-					if (d.getRegion().intersects(b.getRegion())) {
-						b.hitBy(d);
-					}
-
+					if ((d.left() < 0) || d.right() > getWidth()) { d.reflectX(); }
+					if (d.getRegion().intersects(b.getRegion())) { b.hitBy(d); }
 					if (getHeight() < d.bottom()) {
 						numLives --;
 						deadDots.add(d);
@@ -124,17 +109,13 @@ public class LaunchPanel extends JPanel implements VanishListener {
 								o.hitBy(d); }
 							if (o.hitCount == 0){break;}
 						}
-						for (Obstacle o: deadObstacles){ obstacles.remove(o); }
-				}
-
+						for (Obstacle o: deadObstacles){ obstacles.remove(o); } }
 				catch (ConcurrentModificationException c){ }
-
 				try {
 					Thread.sleep(15); }
 				catch (InterruptedException e) {
 					e.printStackTrace(); }
-				repaint();
-			}
+				repaint(); }
 		}
 		@Override
 		public void run() {
